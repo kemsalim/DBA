@@ -1,6 +1,7 @@
 ##COMMON COMMAND POSTGRESQL
 
 | Command  | Level  | Keterangan  |
+| -------- | -------- | -------- |
 | ```bash docker container ls -a``` | - | list container |
 | ```bash docker login``` | - | Login ke Docker |
 | ```bash docker run -d --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=password123 postgres``` | - | Membuat DB baru |
