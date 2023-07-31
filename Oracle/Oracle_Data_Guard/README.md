@@ -196,11 +196,13 @@ oracle.install.db.rootconfig.executeRootScript=false
 ```bash
 [oracle@localhost ~]$ vi /home/oracle/STBY_ORCL.env
 ```
+```bash
 ORACLE_HOME=/u01/app/oracle/product/19.0.0/db_1; export ORACLE_HOME
 ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE
 ORACLE_SID=STBY_ORCLDB; export ORACLE_SID
-PATH=/home/oracle/.local/bin:/home/oracle/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/u01/app/orcle/product/19.0.0/db_1/bin:/u01/app/oracle/product/19.0.0/db_1/OPatch; export PATH
+PATH=/home/oracle/.local/bin:/home/oracle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/u01/app/orcle/product/19.0.0/db_1/bin:/u01/app/oracle/product/19.0.0/db_1/OPatch; export PATH
 ```
+```bash
 [oracle@localhost ~]$ source /home/oracle/STBY_ORCL.env
 [oracle@localhost ~]$ echo $ORACLE_HOME
 ```
