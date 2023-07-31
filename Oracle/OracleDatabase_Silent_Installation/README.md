@@ -90,8 +90,7 @@ You can download set [**rsp file**](https://drive.google.com/file/d/1286TZH1BrAe
 ![](attachments/Screenshot_15.png)
 ```bash
 cd /u01/app/oracle/product/19.0.0/db_1
-./runInstaller -executePrereqs -silent -responseFile
-/u01/app/oracle/product/19.0.0/db_1/install/response/db_install.rsp
+./runInstaller -executePrereqs -silent -responseFile /u01/app/oracle/product/19.0.0/db_1/install/response/db_install.rsp
 ```
 * An attempt to install Oracle Software finishes with error. I described the root cause for this behavior in the previous step. It is a good example why should do diligent QA tests of a Linux & Database configuration before using it for a production environment. Oracle RDBMS 19c is now certified on Oracle Linux 8. Unfortunately the Oracle Universal Installer in Silent Mode fails when checking the OS version. Move to the next step with work arround for this problem.
 ![](attachments/Screenshot_16.png)
@@ -111,11 +110,13 @@ export CV_ASSUME_DISTID=OEL7.8
 exit
 /u01/app/oraInventory/orainstRoot.sh
 ```
-* Finally execute the following commands as ORACLE user to complete configurations of Oracle Database. This operation will take some times to finish. You can have a cup of coffe now.
-![](attachments/Screenshot_19.png)
 ```bash
 /u01/app/oracle/product/19.0.0/db_1/root.sh
 ```
+
+* Finally execute the following commands as ORACLE user to complete configurations of Oracle Database. This operation will take some times to finish. You can have a cup of coffe now.
+![](attachments/Screenshot_19.png)
+
 ```bash
 [root@oracle ~]# su oracle
 [oracle@oracle ~]$  export CV_ASSUME_DISTID=OEL7.8
