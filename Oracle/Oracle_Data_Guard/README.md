@@ -266,6 +266,7 @@ SID_LIST_LISTENER =
        (SID_NAME = orcl)
        )
  )
+```
 
 tnsnames.ora PRIMARY
 ```bash
