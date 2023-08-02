@@ -33,18 +33,18 @@ history | grep tail
 
 | Command  | Level  | Keterangan  |
 | -------- | -------- | -------- |
-| ```bash startup; ``` | SQL   | Untuk memulai instance pada Oracle Database   |
-| ```bash SELECT name FROM v$database; ```  | SQL   | Menampilkan nama dari database yang tersedia   |
-| ```bash DESCRIBE v$database; ```| SQL | Untuk menampilkan informasi dari kolom sebuah database |
-| ```bash SELECT DBID, NAME, OPEN_MODE FROM v$database; ```| SQL | Menampilkan informasi ID Database, Nama, dan status akses edit |
-| ```bash SELECT FILE#, NAME FROM v$datafile; ```| SQL | Menampilkan informasi direktori, dan nama dari datafile |
-| ```bash SELECT df.NAME as "NAME DF", ts.NAME as "NAME TS" FROM v$datafile df INNER JOIN v$tablespace ts ON df.TS# = ts.TS#; ``` | SQL | Query Join untuk menampilkan informasi nama dan direktori nya berdasarkan join tabel datafile dengan tablespace dengan PK TS# |
-| ```bash shutdown; shutdown immediate; ```| SQL | Jika hanya shutdown, harus di close session lain satu persatu. Immediate memaksa ter shutdown session lain juga. |
-|  ```bash lsnrctl status ``` | SQL | Memeriksa apakah Listener sedang kondisi menyala  |
-|  ```bash lsnrctl start ``` | SQL | Memulai listener |
-|  ```bash cd/u01/app/oracle/product/19.0.0/db_1/network/admin/ls -lrth ``` | ORCL | Memeriksa listener mana saja yang aktif |
-|  ```bash exit ``` | SQL | Untuk akhiri command session |
-|  ```bash wq: ``` | ALL | Untuk save setelakukan perubahan pada file |
+| ```startup; ``` | SQL   | Untuk memulai instance pada Oracle Database   |
+| ```SELECT name FROM v$database; ```  | SQL   | Menampilkan nama dari database yang tersedia   |
+| ```DESCRIBE v$database; ```| SQL | Untuk menampilkan informasi dari kolom sebuah database |
+| ```SELECT DBID, NAME, OPEN_MODE FROM v$database; ```| SQL | Menampilkan informasi ID Database, Nama, dan status akses edit |
+| ```SELECT FILE#, NAME FROM v$datafile; ```| SQL | Menampilkan informasi direktori, dan nama dari datafile |
+| ```SELECT df.NAME as "NAME DF", ts.NAME as "NAME TS" FROM v$datafile df INNER JOIN v$tablespace ts ON df.TS# = ts.TS#; ``` | SQL | Query Join untuk menampilkan informasi nama dan direktori nya berdasarkan join tabel datafile dengan tablespace dengan PK TS# |
+| ```shutdown; shutdown immediate; ```| SQL | Jika hanya shutdown, harus di close session lain satu persatu. Immediate memaksa ter shutdown session lain juga. |
+|  ```lsnrctl status ``` | SQL | Memeriksa apakah Listener sedang kondisi menyala  |
+|  ```lsnrctl start ``` | SQL | Memulai listener |
+|  ```cd/u01/app/oracle/product/19.0.0/db_1/network/admin/ls -lrth ``` | ORCL | Memeriksa listener mana saja yang aktif |
+|  ```exit ``` | SQL | Untuk akhiri command session |
+|  ```wq: ``` | ALL | Untuk save setelakukan perubahan pada file |
 |  ```bash cd /u01/app/oracle/product/19.0.0/db_1/dbs ``` | DIR | Memeriksa file init.ora atau spfile.ora File ini terkait startup; |
 | ```bash cd /u01/app/oracle/diag/rdbms/orcldb/orcl/trace/ ```| DIR | File alert.log memiliki peran penting dalam pemantauan dan pemecahan masalah database. Ini adalah file teks yang berisi catatan peristiwa (event) yang signifikan dan pesan kesalahan yang dihasilkan oleh Oracle Database.|
 | ```bash CREATE TABLESPACE kemil DATAFILE '/u01/app/oracle/product/19.0.0/db_1/mydbfiles/ORCLDB/kemil.dbf' SIZE 100M; ```| SQL | Membuat tablespace baru dengan nama kemil pada datafile |
