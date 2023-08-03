@@ -348,7 +348,7 @@ ORACLE_SID=STBY_ORCLDB; export ORACLE_SID
 PATH=/home/oracle/.local/bin:/home/oracle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch; export PATH
 ```
 
-
-
+## Another Refrence For Solved
+https://logic.edchen.org/how-to-resolve-ora-01152-file-1-was-not-restored-from-a-sufficiently-old-backup/
 
 
