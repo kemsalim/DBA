@@ -38,4 +38,20 @@ mongosh
 show dbs
 ```
 
+## How to Install VBox (Full Screen) on VM CentOS
+```bash
+yum -y install gcc
+```
+```bash
+yum install make perl
+```
+```bash
+yum y install kernel-devel-$(uname -r)
+```
+```bash
+yum install elfutils-libelf-devel
+```
+```bash
+/run/media/admin/VBox_GAs_7.0.10/VBoxLinuxAdditions.run
+```
 
