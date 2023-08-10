@@ -55,3 +55,44 @@ yum install elfutils-libelf-devel
 /run/media/admin/VBox_GAs_7.0.10/VBoxLinuxAdditions.run
 ```
 
+## How to Install MongoDB on Linux/Red Hat
+1. Create an ```/etc/yum.repos.d/mongodb-enterprise-6.0.repo``` file so that you can install MongoDB enterprise directly using yum:
+```bash
+[mongodb-enterprise-6.0]
+name=MongoDB Enterprise Repository
+baseurl=https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/6.0/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
+```
+
+2. Install the MongoDB Enterprise packages
+Issue the following command:
+```bash
+yum install -y mongodb-enterprise
+```
+
+3. To make sure MongoDB well Installed 
+```bash
+mongod
+```
+
+4. To Start, Stop, and See Stat of MongoDB
+```bash
+systemctl start mongod
+```
+```bash
+systemctl start mongod
+```
+```bash
+systemctl enable mongod
+```
+```bash
+netstat -ntpl
+```
+```bash
+systemctl status mongod
+```
+
+
+
