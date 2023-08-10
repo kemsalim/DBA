@@ -94,5 +94,27 @@ netstat -ntpl
 systemctl status mongod
 ```
 
+## How to Create Database on MongoDB
+
+- To create database, MongoDB use "use"
+```bash
+use database_name
+```
+- To see dbs
+```bash
+show dbs
+```
+- To see db
+```bash
+db
+```
+- To create table on DB 
+```bash
+db.createCollection("movienames")
+```
+- To see Collection or Table
+```bash
+show collection
+```
 
 
