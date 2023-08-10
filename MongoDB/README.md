@@ -117,4 +117,15 @@ db.createCollection("movienames")
 show collection
 ```
 
+## How to Drop Database on MongoDB
+1. Enter to the Database using :
+```bash
+use database_name
+```
+
+2. Use the following command to drop the Database :
+```bash
+db.dropDatabase()
+```
+
 
