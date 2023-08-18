@@ -268,26 +268,42 @@ Stop log apply service or MRP and shutdown the standby
 SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; 
 ```
 
-``` SQL> SHUT IMMEDIATE; ```
+```bash
+SQL> SHUT IMMEDIATE; 
+```
 
-```bash lsnrctl stop```
+```bash
+lsnrctl stop
+```
 
 Stop log shipping from primary and shutdown primary database
 
-```SQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';```
+```bash
+SQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';
+```
 
 
 Data Guard Startup Sequence
 
 Startup primary database and enable log shipping
 
-```SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';```
+```bash
+SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
+```
 
 Startup standby and enable log apply service or MRP
 
-```SQL> startup nomount;```
-```SQL> alter database mount standby database;```
+```bash
+SQL> startup nomount;
+```
+```bash
+SQL> alter database mount standby database;
+```
 
-```SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;```
+```bash
+SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;
+```
 
-```lsnrctl start```
+```bash
+lsnrctl start
+```
