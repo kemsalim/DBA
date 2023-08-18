@@ -264,27 +264,28 @@ Data Guard Shutdown Sequence
 
 Stop log apply service or MRP and shutdown the standby
 
-```bash SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; ```
-```bash SQL> SHUT IMMEDIATE; ```
+``` SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; ```
+
+``` SQL> SHUT IMMEDIATE; ```
 
 ```bash lsnrctl stop```
 
 Stop log shipping from primary and shutdown primary database
 
-```bashSQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';```
+```SQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';```
 
 
 Data Guard Startup Sequence
 
 Startup primary database and enable log shipping
 
-```bash SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';```
+```SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';```
 
 Startup standby and enable log apply service or MRP
 
-```bash SQL> startup nomount;```
-```bash SQL> alter database mount standby database;```
+```SQL> startup nomount;```
+```SQL> alter database mount standby database;```
 
-```bash SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;```
+```SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;```
 
-```bash lsnrctl start```
+```lsnrctl start```
