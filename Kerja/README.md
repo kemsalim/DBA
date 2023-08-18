@@ -264,7 +264,9 @@ Data Guard Shutdown Sequence
 
 Stop log apply service or MRP and shutdown the standby
 
-``` SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; ```
+```bash
+SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; 
+```
 
 ``` SQL> SHUT IMMEDIATE; ```
 
