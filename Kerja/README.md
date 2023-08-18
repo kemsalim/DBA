@@ -221,3 +221,70 @@ compression=all
 cluster=N
 parallel=4
 ```
+
+## CONTOH REQ 2
+
+Selamat siang tim MII. mohon bantuannya untuk database development kami saat ini tidak bisa diakses apakah bisa dibantu cek?
+
+## CONTOH REQ 3
+
+Relokasi server Bank Hana Mangkuluhur ke BSD
+
+Step Restart 
+1. Matikan mrp
+2. Matikan instance
+3. Matikan cluster
+
+#Checking Status Database, Listener, Cluster, Gap
+--Check Database : ps -ef|grep pmon (Screen shoot)
+--Check Listener : lsnrctl status (Screen Shoot)
+--Check Gap : query gap di mii/monitoring (Screen Shoot)
+--Check Cluster : Login grid => crsctl stat res -t (Screen Shoot)
+
+#Stop MRP Listener, Database Service, Cluster
+--Stop MRP DI DRCFASTHUBNRTDB01: alter database recover managed standby database cancel;
+--Stop Listener : lsnrctl stop (Screen Shoot pastikan sudah mati)
+--Check Status service db => srvctl status database -d hunrtpro_pri
+--Shutdown DB : Login grid => srvctl stop instance -d hunrtpro_pri -i hunrtpro1 (Screen Shoot pastikan sudah mati)
+--Stop cluster :1. login root, cd /home/grid
+--				2. . .bash_profile 
+--				3. crsctl stop crs (Screen Shoot pastikan sudah mati)
+
+#Manual Database UP
+--check status cluster : crsctl stat res -t (if DB not open,then Open DB manualy as below)
+-Start Cluster : Login grid => crsctl start has 
+-Open DB : srvctl start database -d hunrtpro_pri
+--check status listener : lsnrctl status (if DB not open,then Open DB manualy as below)
+-start Listener : lsnrctl start
+-start MRP DI DRCFASTHUBNRTDB01 : alter database recover managed standby database disconnect nodelay;
+
+===========================================================================================================================
+
+Data Guard Shutdown Sequence
+
+Stop log apply service or MRP and shutdown the standby
+
+```bash SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL; ```
+```bash SQL> SHUT IMMEDIATE; ```
+
+```bash lsnrctl stop```
+
+Stop log shipping from primary and shutdown primary database
+
+```bashSQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';```
+
+
+Data Guard Startup Sequence
+
+Startup primary database and enable log shipping
+
+```bash SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';```
+
+Startup standby and enable log apply service or MRP
+
+```bash SQL> startup nomount;```
+```bash SQL> alter database mount standby database;```
+
+```bash SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;```
+
+```bash lsnrctl start```
