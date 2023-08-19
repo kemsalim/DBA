@@ -308,4 +308,20 @@ lsnrctl start
 SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
 ```
 
+```bash
+ALTER SYSTEM SWITCH LOGFILE;
+```
+
+```bash
+ALTER SYSTEM SWITCH LOGFILE;
+```
+
+```bash
+CEK GAP
+```
+
+```bash
+CEK ALERT
+```
+
 3. Cek GAP DC DRC
