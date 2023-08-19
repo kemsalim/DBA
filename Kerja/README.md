@@ -285,13 +285,7 @@ SQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';
 
 Data Guard Startup Sequence
 
-Startup primary database and enable log shipping
-
-```bash
-SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
-```
-
-Startup standby and enable log apply service or MRP
+1. Startup standby and enable log apply service or MRP
 
 ```bash
 SQL> startup nomount;
@@ -307,3 +301,11 @@ SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;
 ```bash
 lsnrctl start
 ```
+
+2. Startup primary database and enable log shipping
+
+```bash
+SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
+```
+
+3. Cek GAP DC DRC
