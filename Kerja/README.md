@@ -1,4 +1,15 @@
 ## COMMON COMMAND
+
+## Table of Content
+* [](#common-command)
+* [](#contoh-req-1)
+* [](#contoh-req-2)
+* [](#contoh-req-3)
+* [](#data-guard-shutdown-sequence)
+* [](#data-guard-startup-sequence)
+* [](#how-to-logon-to-sql-on-pt-pegadaian)
+* [](#test-backup-restore-rman)
+
 ```bash
 echo $ORACLE_SID
 ls -la
