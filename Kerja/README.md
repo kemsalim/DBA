@@ -260,7 +260,7 @@ Step Restart
 
 ===========================================================================================================================
 
-Data Guard Shutdown Sequence
+## Data Guard Shutdown Sequence
 
 Stop log apply service or MRP and shutdown the standby
 
@@ -283,7 +283,7 @@ SQL> ALTER SYSTEM SET log_archive_dest_state_2='DEFER';
 ```
 
 
-Data Guard Startup Sequence
+## Data Guard Startup Sequence
 
 1. Startup standby and enable log apply service or MRP
 
@@ -325,3 +325,10 @@ CEK ALERT
 ```
 
 3. Cek GAP DC DRC
+
+## How to Logon to SQL on PT Pegadaian
+
+1. Login ke terminal dengan user p94431 pass PL123!aaa
+2. Masuk ke root sudo su - atau yassin_vendor_msdba (Gadai123!)
+3. Masuk ke ke SQL mysql -umsdba -pGadai162!
+4. Untuk collect data using source (collect data)
