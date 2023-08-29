@@ -2,9 +2,9 @@
 
 ## Table of Content
 * [Common Command](#common-command)
-* [Contoh Rquest 1](#contoh-req-1)
-* [Contoh Rquest 2](#contoh-req-2)
-* [Contoh Rquest 3](#contoh-req-3)
+* [Contoh Request 1](#contoh-req-1)
+* [Contoh Request 2](#contoh-req-2)
+* [Contoh Request 3](#contoh-req-3)
 * [Data Guard Shutdown Sequence](#data-guard-shutdown-sequence)
 * [Data Guard Startup Sequence](#data-guard-startup-sequence)
 * [How to logon to sql on PT Pegadaian](#how-to-logon-to-sql-on-pt-pegadaian)
