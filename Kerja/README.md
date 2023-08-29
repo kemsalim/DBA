@@ -1,14 +1,14 @@
 ## COMMON COMMAND
 
 ## Table of Content
-* [](#common-command)
-* [](#contoh-req-1)
-* [](#contoh-req-2)
-* [](#contoh-req-3)
-* [](#data-guard-shutdown-sequence)
-* [](#data-guard-startup-sequence)
-* [](#how-to-logon-to-sql-on-pt-pegadaian)
-* [](#test-backup-restore-rman)
+* [Common Command](#common-command)
+* [Contoh Rquest 1](#contoh-req-1)
+* [Contoh Rquest 2](#contoh-req-2)
+* [Contoh Rquest 3](#contoh-req-3)
+* [Data Guard Shutdown Sequence](#data-guard-shutdown-sequence)
+* [Data Guard Startup Sequence](#data-guard-startup-sequence)
+* [How to logon to sql on PT Pegadaian](#how-to-logon-to-sql-on-pt-pegadaian)
+* [Test Backup Restore RMAN](#test-backup-restore-rman)
 
 ```bash
 echo $ORACLE_SID
@@ -41,6 +41,8 @@ df -h
 ```bash
 history | grep tail
 ```
+
+## Common Command
 
 | Command  | Level  | Keterangan  |
 | -------- | -------- | -------- |
@@ -343,3 +345,10 @@ CEK ALERT
 2. Masuk ke root sudo su - atau yassin_vendor_msdba (Gadai123!)
 3. Masuk ke ke SQL mysql -umsdba -pGadai162!
 4. Untuk collect data using source (collect data)
+
+## Command yang harus di cati tau
+
+du sh *
+
+
+
