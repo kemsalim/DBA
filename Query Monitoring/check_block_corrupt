@@ -1,0 +1,110 @@
+select * from v$database_block_corruption;
+
+     FILE#     BLOCK#     BLOCKS CORRUPTION_CHANGE# CORRUPTIO     CON_ID
+---------- ---------- ---------- ------------------ --------- ----------
+         7     891830          1                  0 FRACTURED          0
+        20     827624          1                  0 FRACTURED          0
+
+
+rman> report schema:
+7    30720    TEMP2                30720       /oracle/data/system/temp07.dbf
+20   30720    SLIK_INQ_IDX_8K      NO      /oracle/data/business/static/8k/slik_inq_idx_8k_02.dbf
+
+SQL> 
+set linesize 500
+col tablespace_name for a17
+col segment_type for a20
+col owner for a15
+col segment_name for a25
+select tablespace_name, segment_type,owner, segment_name from dba_extents
+where file_id=&AFN
+and &BL between block_id AND block_id + blocks -1;
+Enter value for afn: 7
+old   2: where file_id=&AFN
+new   2: where file_id=7
+Enter value for bl: 891830
+old   3: and &BL between block_id AND block_id + blocks -1
+new   3: and 891830 between block_id AND block_id + blocks -1
+
+TABLESPACE_NAME   SEGMENT_TYPE         OWNER            SEGMENT_NAME
+----------------- -------------------- ---------------- -------------------------
+SLIK_INQ_DATA_8K  TABLE                SLIK_DBA_INQUIRY APP_USERS
+           
+
+SQL> 
+set linesize 500
+col tablespace_name for a17
+col segment_type for a20
+col owner for a15
+col segment_name for a25
+select tablespace_name, segment_type,owner, segment_name from dba_extents
+where file_id=&AFN
+and &BL between block_id AND block_id + blocks -1;
+Enter value for afn: 20
+old   2: where file_id=&AFN
+new   2: where file_id=20
+Enter value for bl: 827624
+old   3: and &BL between block_id AND block_id + blocks -1
+new   3: and 827624 between block_id AND block_id + blocks -1
+
+TABLESPACE_NAME   SEGMENT_TYPE         OWNER            SEGMENT_NAME
+----------------- -------------------- ---------------- -------------------------
+SLIK_INQ_IDX_8K   INDEX                SLIK_DBA_INQUIRY INQUIRY_INDIVIDUALS_IDV
+                            
+
+select * from dba_extents where file_id=7 and 891830 between block_id and block_id+blocks-1;
+OWNER                SEGMENT_NA PARTITION_NAME  SEGMENT_TY TABLESPACE_NAME    EXTENT_ID    FILE_ID   BLOCK_ID      BYTES     BLOCKS RELATIVE_FNO
+-------------------- ---------- --------------- ---------- ----------------- ---------- ---------- ---------- ---------- ---------- ------------
+SLIK_DBA_INQUIRY     APP_USERS                  TABLE      SLIK_INQ_DATA_8K          17          7     891776    1048576        128            7
+
+
+
+set lines 500
+col SEGMENT_TYPE for a10
+col SEGMENT_NAME for a20
+col OWNER for a20
+
+select * from dba_extents where file_id=20 and 827624 between block_id and block_id+blocks-1;
+OWNER                SEGMENT_NA PARTITION_NAME  SEGMENT_TY TABLESPACE_NAME    EXTENT_ID    FILE_ID   BLOCK_ID      BYTES     BLOCKS RELATIVE_FNO
+-------------------- ---------- --------------- ---------- ----------------- ---------- ---------- ---------- ---------- ---------- ------------
+SLIK_DBA_INQUIRY     INQUIRY_IN                 INDEX      SLIK_INQ_IDX_8K           61         20     827520    1048576        128           20
+                     DIVIDUALS_
+                     IDV
+
+
+select bytes/1024/1024/1024 from dba_segments where segment_name='APP_USERS' and owner='SLIK_DBA_INQUIRY';
+
+BYTES/1024/1024/1024
+--------------------
+          .025390625
+
+select bytes/1024/1024/1024 from dba_segments where segment_name='INQUIRY_INDIVIDUALS_IDV' and owner='SLIK_DBA_INQUIRY';
+
+BYTES/1024/1024/1024
+--------------------
+          .434570313
+
+
+select table_owner, table_name, index_name from dba_indexes where owner='SLIK_DBA_INQUIRY';
+
+
+
+==================================================================================================================
+RMAN> list failure;
+
+SQL>  select * from V$DATABASE_BLOCK_CORRUPTION;
+     FILE#       BLOCK#     BLOCKS    CORRUPTION_CHANGE# CORRUPTIO
+	---------- ---------- ---------- ------------------ ---------
+     73          2525          1                  0      FRACTURED
+
+oracle@fmsdb $ dbv file="+DATA1/spark/datafile/ts_gprs_cdr_001ind_32k.428.877783237" blocksize=32768 userid=sys/0racle
+
+SELECT tablespace_name, segment_type, owner, segment_name
+  FROM dba_extents
+WHERE file_id = 73 and 2525 between block_id AND block_id + blocks - 1;
+
+
+
+
+
+

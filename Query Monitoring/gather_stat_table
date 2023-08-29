@@ -1,0 +1,43 @@
+--cek user table on owner
+
+SELECT
+  table_name, owner
+FROM
+  dba_tables
+WHERE
+  owner='schema_name'
+ORDER BY
+  owner, table_name
+  
+-----Get table owner:
+set linesize 500
+col owner for a15
+col 
+select owner, table_name, tablespace_name from dba_tables where table_name='YOUR_TABLE';
+
+----###cek size Table###----
+SET LINES 333 PAGES 1000
+COL OWNER FOR A30
+COL TABLESPACE_NAME FOR A30
+COL SEGMENT_NAME FOR A30
+SELECT
+OWNER,
+TABLESPACE_NAME,
+SEGMENT_NAME,SUM(BYTES)/1024/1024 AS "SIZE IN MB"
+FROM DBA_SEGMENTS 
+WHERE SEGMENT_TYPE='TABLE' AND OWNER LIKE 'USER_%'
+GROUP BY OWNER,SEGMENT_NAME,TABLESPACE_NAME
+ORDER BY OWNER,SEGMENT_NAME,TABLESPACE_NAME,SUM(BYTES) DESC;
+
+---gather stat table
+BEGIN
+DBMS_STATS.GATHER_TABLE_STATS (
+ownname => ‘HR’,
+tabname => ‘EMP’,
+cascade => true, —- For collecting stats for respective indexes
+method_opt=>’for all indexed columns size 1′,
+granularity => ‘ALL’,
+estimate_percent =>dbms_stats.auto_sample_size,
+degree => 4);
+END;
+/

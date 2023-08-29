@@ -1,0 +1,36 @@
+====================================
+PGA History
+====================================
+
+select a.instance_number,BEGIN_INTERVAL_TIME,name ,value/1024/1024/1024 gb 
+from dba_hist_pgastat a,dba_hist_snapshot b
+where name='total PGA inuse'
+and a.snap_id=b.snap_id
+and a.instance_number=b.instance_number
+order by 2;
+
+====================================
+PGA History2
+====================================
+col session for a35
+col CURRSIZE for a35
+col MAXMSIZ for a35
+col event for a30
+col status for a15
+
+SELECT   to_char(ssn.sid, '9999') || ' - ' || nvl(ssn.username, nvl(bgp.name, 'background')) ||
+                  nvl(lower(ssn.machine), ins.host_name) "SESSION",
+            ssn.sql_id,ssn.event,
+             to_char((se1.value/1024)/1024, '999G999G990D00') || ' MB'  currsize,
+             to_char((se2.value/1024)/1024, '999G999G990D00') || ' MB'  MAXMSIZ,
+                ssn.status
+    FROM     v$sesstat se1, v$sesstat se2, v$session ssn, v$bgprocess bgp, v$process prc,
+          v$instance ins,  v$statname stat1, v$statname stat2
+ WHERE    se1.statistic# = stat1.statistic# and stat1.name = 'session pga memory'
+ AND      se2.statistic#  = stat2.statistic# and stat2.name = 'session pga memory max'
+ AND      se1.sid        = ssn.sid
+ AND      se2.sid        = ssn.sid
+ AND      ssn.status     = 'INACTIVE'
+ AND      ssn.paddr      = bgp.paddr (+)
+ AND      ssn.paddr      = prc.addr  (+)
+ORDER BY &sort_order DESC;

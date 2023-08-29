@@ -1,0 +1,55 @@
+set linesize 200
+select s.username, s.sid, s.process, s.status, t.command_type, t.sql_text
+  from v$session s
+     , v$sqltext t
+ where t.sql_id = s.sql_id
+ order by t.sql_id, t.piece;
+ 
+ set pagesize 1000 lines 500
+col RESOURCE_NAME for 999,999,999
+col CURRENT_UTILIZATION for 999,999,999
+col MAX_UTILIZATION for 999,999,999
+col LIMIT_VALUE for 999,999,999
+select RESOURCE_NAME,CURRENT_UTILIZATION,MAX_UTILIZATION,LIMIT_VALUE 
+from v$resource_limit where resource_name = 'sessions';
+
+col RESOURCE_NAME for a15
+col CURRENT_UTILIZATION for 999,999,999
+col MAX_UTILIZATION for 999,999,999
+col LIMIT_VALUE for 999,999,999
+select RESOURCE_NAME,CURRENT_UTILIZATION,MAX_UTILIZATION,LIMIT_VALUE 
+from v$resource_limit where resource_name = 'processes';
+
+---Sessions Count from History
+spool session_count.txt
+set linesize 1000
+set pagesize 500
+col begin_interval_time for a30
+col end_interval_time for a30
+col resource_name for a15
+SELECT   rl.snap_id, s.begin_interval_time, s.end_interval_time,
+         rl.instance_number, rl.resource_name, rl.current_utilization,
+         rl.max_utilization
+FROM dba_hist_resource_limit rl, dba_hist_snapshot s
+WHERE s.snap_id = rl.snap_id AND rl.resource_name = 'sessions'
+and S.BEGIN_INTERVAL_TIME>=to_date('20210828','YYYYMMDD')
+and S.END_INTERVAL_TIME<=to_date('20210929','YYYYMMDD')
+ORDER BY s.begin_interval_time, rl.instance_number;
+spool off
+
+-- Processes Count from History
+spool process_count.txt
+set linesize 1000
+set pagesize 500
+col begin_interval_time for a30
+col end_interval_time for a30
+col resource_name for a15
+SELECT   rl.snap_id, s.begin_interval_time, s.end_interval_time,
+         rl.instance_number, rl.resource_name, rl.current_utilization,
+         rl.max_utilization
+    FROM dba_hist_resource_limit rl, dba_hist_snapshot s
+   WHERE s.snap_id = rl.snap_id AND rl.resource_name = 'processes'
+   and S.BEGIN_INTERVAL_TIME>=to_date('20210917','YYYYMMDD')
+   and S.END_INTERVAL_TIME<=to_date('20210816','YYYYMMDD')
+ORDER BY s.begin_interval_time, rl.instance_number;
+spool off

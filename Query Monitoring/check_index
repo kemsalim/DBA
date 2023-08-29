@@ -1,0 +1,18 @@
+--Query to check Index on a Table in Oracle
+
+set lines 200
+col index_name from a30
+col column_name for a30
+
+select index_name from dba_indexes where table_name='&TABLE_NAME' and owner='&TABLE_OWNER';
+
+select index_name from user_indexes where table_name='&TABLE_NAME';
+
+select OWNER,INDEX_NAME,STATUS,TABLE_NAME from dba_indexes where TABLE_NAME='&tablename';
+
+-----Query To Check Index Column on a Table in Oracle
+set lines 200
+col index_name from a30
+col column_name for a30
+select index_name, column_name from dba_ind_columns where table_name='&TABLE_NAME' and TABLE_OWNER='&OWNER';
+select index_name, column_name from user_ind_columns where table_name='&TABLE_NAME';

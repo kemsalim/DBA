@@ -1,0 +1,90 @@
+--rman
+alter session set nls_date_format='DD-MON-YYYY HH24:MI:SS';
+
+set linesize 1000
+col opname for a40
+col pct_done for a15
+
+select sl.sid, sl.opname,
+       to_char(100*(sofar/totalwork), '990.9')||'%' pct_done,
+       sysdate+(TIME_REMAINING/60/60/24) done_by
+  from v$session_longops sl, v$session s
+ where sl.sid = s.sid
+   and sl.serial# = s.serial#
+   and sl.sid in (select sid from v$session where module like 'backup%' or module like 'restore%' or module like 'rman%')
+   and sofar != totalwork
+        and totalwork > 0;
+
+OR
+
+
+--RMAN Backup progress 
+
+SELECT SID, SERIAL#, CONTEXT, SOFAR, TOTALWORK,
+ROUND(SOFAR/TOTALWORK*100,2) "%_COMPLETE"
+FROM V$SESSION_LONGOPS
+WHERE OPNAME LIKE 'RMAN%'
+AND OPNAME NOT LIKE '%aggregate%'
+AND TOTALWORK != 0
+AND SOFAR <> TOTALWORK order by 6 desc;
+
+
+--RMAN Backup and Restore Status and progress
+alter session set nls_date_format='DD-MON-YYYY HH24:MI:SS';
+set line 2222;
+set pages 2222;
+set long 6666;
+select sl.sid, sl.opname,
+to_char(100*(sofar/totalwork), '990.9')||'%' pct_done,
+sysdate+(TIME_REMAINING/60/60/24) done_by
+from v$session_longops sl, v$session s
+where sl.sid = s.sid
+and sl.serial# = s.serial#
+and sl.sid in (select sid from v$session where module like 'backup%' or module like 'restore%' or module like 'rman%')
+and sofar != totalwork
+and totalwork > 0;
+
+SET ECHO ON
+SET DEFINE ON
+SET LINESIZE 132
+COLUMN opname FORMAT A15
+COLUMN target FORMAT A15
+COLUMN units  FORMAT A10
+SELECT sid
+,      opname
+,      target
+,      sofar
+,      totalwork
+,      units
+,      start_time
+,      time_remaining
+FROM   v$session_longops
+WHERE  sid = &sid;
+
+
+--expdp - impdp
+SELECT sl.sid, sl.serial#, sl.sofar, sl.totalwork, dp.owner_name, dp.state, dp.job_mode
+     FROM v$session_longops sl, v$datapump_job dp
+     WHERE sl.opname = dp.job_name
+     AND sl.sofar != sl.totalwork;
+
+OR
+
+SELECT SID, SERIAL#, CONTEXT, SOFAR, TOTALWORK,
+ROUND(SOFAR/TOTALWORK*100,2) "%_COMPLETE"
+FROM V$SESSION_LONGOPS
+WHERE OPNAME NOT LIKE '%aggregate%'
+AND TOTALWORK != 0
+AND SOFAR <> TOTALWORK order by 6 desc;
+
+
+--wait status_expdp-impdp
+SELECT w.sid, w.event, w.seconds_in_wait
+FROM V$SESSION s, DBA_DATAPUMP_SESSIONS d, V$SESSION_WAIT w
+WHERE s.saddr = d.saddr AND s.sid = w.sid;
+
+
+select elapsed_time/1000000 seconds, gv$sql.*
+from gv$sql
+where users_executing > 0
+order by users_executing desc;

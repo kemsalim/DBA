@@ -1,0 +1,62 @@
+========================
+Host CPU Utilization (%)
+========================
+
+set linesize 1000
+set pagesize 500
+col begin_interval_time for a30
+col end_interval_time for a30
+select hss.snap_id, hs.begin_interval_time, hs.end_interval_time,
+hss.instance_number,round(hss.maxval,2) as MAXVAL, round(hss.average,2) as AVG
+from DBA_HIST_SYSMETRIC_SUMMARY hss, dba_hist_snapshot hs
+WHERE hss.snap_id = hs.snap_id 
+AND hss.metric_name ='Host CPU Utilization (%)'
+AND hs.BEGIN_INTERVAL_TIME>=to_date('20220201','YYYYMMDD')
+AND hs.END_INTERVAL_TIME<=to_date('20220212','YYYYMMDD')
+ORDER BY hs.begin_interval_time;
+----------
+
+set linesize 1000
+set pagesize 1000
+col begin_interval_time for a30
+col end_interval_time for a30
+select hss.snap_id, hs.begin_interval_time, hs.end_interval_time,
+hss.instance_number,round(hss.maxval,2) as MAXVAL, round(hss.average,2) as AVG
+from DBA_HIST_SYSMETRIC_SUMMARY hss, dba_hist_snapshot hs
+WHERE hss.snap_id = hs.snap_id 
+AND hss.metric_name ='Host CPU Utilization (%)'
+ORDER BY hs.begin_interval_time;
+
+========================
+PGA-SGA Utilization (GB)
+========================
+SELECT sn.INSTANCE_NUMBER,
+         sga.allo sga,
+         pga.allo pga,
+         (sga.allo + pga.allo) tot,
+         to_char(SN.END_INTERVAL_TIME, 'dd/mm/yyyy hh24:mi:ss') time
+    FROM (  SELECT snap_id,
+                   INSTANCE_NUMBER,
+                   ROUND (SUM (bytes) / 1024 / 1024 / 1024, 3) allo
+              FROM DBA_HIST_SGASTAT
+          GROUP BY snap_id, INSTANCE_NUMBER) sga,
+         (  SELECT snap_id,
+                   INSTANCE_NUMBER,
+                   ROUND (SUM (VALUE) / 1024 / 1024 / 1024, 3) allo
+              FROM DBA_HIST_PGASTAT
+             WHERE name = 'total PGA allocated'
+          GROUP BY snap_id, INSTANCE_NUMBER) pga,
+         dba_hist_snapshot sn
+   WHERE     sn.snap_id = sga.snap_id
+         AND sn.INSTANCE_NUMBER = sga.INSTANCE_NUMBER
+         AND sn.snap_id = pga.snap_id
+         AND sn.INSTANCE_NUMBER = pga.INSTANCE_NUMBER
+ORDER BY sn.snap_id;
+
+===========================
+CEK PGA/SGA
+===========================
+SELECT name, value
+FROM v$parameter
+WHERE name IN (‘pga_aggregate_target’, ‘sga_target’);
+

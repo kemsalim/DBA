@@ -1,0 +1,8 @@
+select count(*) from dba_data_files where TABLESPACE_NAME='SIPDATA';
+alter tablespace SIPDATA add datafile '+DATA' size 32700M AUTOEXTEND OFF;
+
+select count(*) from dba_data_files where TABLESPACE_NAME='SOURCEDATA';
+alter tablespace SOURCEDATA add datafile '+DATA' size 32700M AUTOEXTEND OFF;
+
+select count(*) from dba_data_files where TABLESPACE_NAME='SOURCEDATAIDX';
+alter tablespace SOURCEDATAIDX add datafile '+DATA' size 32700M AUTOEXTEND OFF;

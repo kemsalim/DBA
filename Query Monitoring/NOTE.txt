@@ -1,0 +1,1 @@
+1. Cek tablespace pdbs, harus masuk ke masing-masing pdbs

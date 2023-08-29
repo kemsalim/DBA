@@ -1,0 +1,95 @@
+CREATE NEW UNDOTBS ON RAC DATABASE
+*********************************************
+
+1.  Cek default UNDOTBS per node
+SQL > select file_name, tablespace_name from dba_data_files where tablespace_name like 'UNDO%';
+SQL > show parameter undo
+
+2.  Create 2 new undotbs
+SQL> create undo tablespace UNDOTBS1 DATAFILE '+DATA' SIZE 31g;
+SQL> alter tablespace UNDOTBS1 add DATAFILE '+DATA' SIZE 31g;
+
+SQL> create undo tablespace UNDOTBS2 DATAFILE '+DATA' SIZE 31g;
+SQL> alter tablespace UNDOTBS2 add DATAFILE '+DATA' SIZE 31g;
+
+3.  Assign undotbs05 to node1
+SQL> show parameter spfile
+SQL> ALTER SYSTEM SET UNDO_TABLESPACE=UNDOTBS1 SCOPE=BOTH SID='saketap1';
+
+4.  Assign undotbs05 to node2
+SQL> ALTER SYSTEM SET UNDO_TABLESPACE=UNDOTBS2 SCOPE=BOTH SID='saketap2';
+
+5.  Cek old UNDOTBS
+SQL> SELECT a.name,b.status , d.username , d.sid , d.serial#
+    FROM v$rollname a,v$rollstat b, v$transaction c , v$session d
+    WHERE a.usn = b.usn
+    AND a.usn = c.xidusn
+    AND c.ses_addr = d.saddr
+    AND a.name IN (
+    SELECT segment_name
+    FROM dba_segments
+    WHERE tablespace_name = 'UNDOTBS3'
+    );
+    
+SQL> SELECT a.name,b.status , d.username , d.sid , d.serial#
+    FROM v$rollname a,v$rollstat b, v$transaction c , v$session d
+    WHERE a.usn = b.usn
+    AND a.usn = c.xidusn
+    AND c.ses_addr = d.saddr
+    AND a.name IN (
+    SELECT segment_name
+    FROM dba_segments
+    WHERE tablespace_name = 'UNDOTBS4'
+    );
+
+    SQL> select owner, segment_name, tablespace_name, status from dba_rollback_segs where tablespace_name='UNDOTBS4' and status='ONLINE';
+
+5.  Drop old UNDOTBS
+    Pastikan hasil query no rows
+    SQL> drop tablespace UNDOTBS3 including contents and datafiles;
+    SQL> drop tablespace UNDOTBS4 including contents and datafiles;
+
+========================================================================
+Add Undotbs RAC
+========================================================================
+
+1. Database BSD
+- Tablespace BSD = 99 % ==> After add 10 datafile = 89%
+
+select count(*) from dba_data_files where TABLESPACE_NAME='BSD';
+alter tablespace BSD add datafile '+DATA' size 32767M AUTOEXTEND 
+
+- Tablespace UNDOTBS2 = 100% ==> After Add 1 datafile = 80%
+
+select count(*) from dba_data_files where TABLESPACE_NAME='UNDOTBS2';
+alter tablespace UNDOTBS2 add datafile '+DATA' size 32767M AUTOEXTEND OFF;
+
+Total Penambahan Datafile = 352gb
+Free +DATA sebelum penambahan datafile = 850gb
+Free +DATA setelah dilakukan penambahan datafile = 498gb
+
+========================================================================
+======= CEK ASM UTILISASI =========
+========================================================================
+SET LINESIZE  500
+SET PAGESIZE  9999
+SET TRIMSPOOL on
+SET VERIFY    off
+
+COLUMN disk_group_name        FORMAT a10           HEAD 'Disk Group Name'
+COLUMN total_mb               FORMAT 999,999,999   HEAD 'File Size (MB)'
+COLUMN used_mb                FORMAT 999,999,999   HEAD 'Used Size (MB)'
+COLUMN free_mb                FORMAT 999,999,999   HEAD 'Free Size (MB)'
+COLUMN pct_used               FORMAT 999.99        HEAD 'Pct. Used'
+COLUMN pct_free               FORMAT 999.99        HEAD 'Pct. Free'
+
+SELECT
+b.group_number                                                                   disk_group_number,
+b.name                                                                           disk_file_name,
+b.total_mb                                                                       total_mb,
+(b.total_mb - b.free_mb)                                                         used_mb,
+b.free_mb                                                                        free_mb,
+decode(b.total_mb,0,0,(ROUND((1- (b.free_mb / b.total_mb))*100, 2)))             pct_used,
+100- decode(b.total_mb,0,0,(ROUND((1- (b.free_mb / b.total_mb))*100, 2)))        pct_free
+FROM v$asm_diskgroup b
+ORDER BY b.group_number;

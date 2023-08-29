@@ -1,0 +1,24 @@
+set linesize 1000
+col host_name for a15
+col db_unique_name for a15
+select a.host_name,  
+	b.name, 
+	b.db_unique_name, 
+	b.database_role, 
+	a.status,
+	b.open_mode 
+from v$instance a, 
+	v$database b;
+
+archive log list
+
+col host_name for a15
+col last_app_timestamp for a20
+set linesize 1000
+SELECT  distinct i.host_name, i.instance_name, a.thread#,  b.last_seq, a.applied_seq, to_char(a.last_app_timestamp,'DD/MM/YYYY HH24:MI:SS') as LAST_APPLY, b.last_seq- a.applied_seq ARC_DIFF 
+FROM (SELECT  thread#, MAX(sequence#) applied_seq, MAX(next_time) last_app_timestamp 
+      FROM gv$archived_log 
+      WHERE applied = 'YES' or applied ='IN-MEMORY' GROUP BY thread#) a,
+	  (SELECT  thread#, MAX (sequence#) last_seq 
+       FROM gv$archived_log GROUP BY thread#) b, v$instance i 
+WHERE a.thread# = b.thread# AND a.thread# = i.thread#;
