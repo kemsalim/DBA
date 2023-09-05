@@ -19,7 +19,7 @@ Pada Standby
 ```bash
 SELECT * FROM pg_stat_replication;
 ```
-![](Gambar/2.png)
+![](Gambar/2.jpeg)
 
 Pada Primary
 Cek Streaming berjalan dengan baik
@@ -27,12 +27,12 @@ Cek Streaming berjalan dengan baik
 SELECT client_addr, state
 FROM pg_stat_replication;
 ```
-![](Gambar/3.png)
+![](Gambar/3.jpeg)
 
 ```bash
 SELECT pg_current_wal_lsn();
 ```
-![](Gambar/4.png)
+![](Gambar/4.jpeg)
 
 Lalu mulai stop service dari STANDBY -> PRIMARY :
 
@@ -40,7 +40,7 @@ STANDBY :
 ```bash
 systemctl status postgresql
 ```
-![](Gambar/5.png)
+![](Gambar/5.jpeg)
 ```bash
 date
 ```
@@ -54,7 +54,7 @@ systemctl status postgresql
 ```bash
 date
 ```
-![](Gambar/6.png)
+![](Gambar/6.jpeg)
 
 PRIMARY:
 ```bash
@@ -63,7 +63,7 @@ systemctl status postgresql
 ```bash
 date
 ```
-![](Gambar/7.png)
+![](Gambar/7.jpeg)
 
 ```bash
 systemctl stop postgresql
@@ -74,7 +74,7 @@ systemctl status postgresql
 ```bash
 date
 ```
-![](Gambar/8.png)
+![](Gambar/8.jpeg)
 
 ## Restart
 
