@@ -82,29 +82,43 @@ ALUR RESTART DIMULAI DARI PRIMARY -> REPLICA
 
 Lalu start service:
 
+Mulai start PRIMARY
 ```bash
 systemctl status postgresql
 ```
-
 ```bash
 date
 ```
+![](Gambar/9.jpeg)
 
 ```bash
 systemctl start postgresql
 ```
-
 ```bash
-SELECT client_addr, state
-FROM pg_stat_replication;
+systemctl status postgresql
 ```
+![](Gambar/10.jpeg)
 
+Mulai Start STANDBY
+```bash
+systemctl status postgresql
+```
 ```bash
 date
 ```
+![](Gambar/11.jpeg)
 
-Cek GAP terlebih dahulu:
+```bash
+systemctl start postgresql
+```
+```bash
+systemctl status postgresql
+```
+![](Gambar/12.jpeg)
 
+
+
+Cek GAP terlebih kembali:
 ```bash
 sudo -u postgres psql
 ```
@@ -113,14 +127,25 @@ Pada Standby
 ```bash
 SELECT * FROM pg_stat_replication;
 ```
+![](Gambar/14.jpeg)
+```bash
+select * from pg_stat_wal_receiver;
+```
+![](Gambar/16.jpeg)
 
 Pada Primary
 ```bash
 SELECT pg_current_wal_lsn();
 ```
+![](Gambar/15.jpeg)
+```bash
+select * from pg_stat_replication;
+```
+![](Gambar/17.jpeg)
 
-Cek Streaming berjalan dengan baik
+Cek Streaming berjalan dengan baik pada primary
 ```bash
 SELECT client_addr, state
 FROM pg_stat_replication;
 ```
+![](Gambar/13.jpeg)
