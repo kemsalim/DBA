@@ -494,7 +494,6 @@ vim /etc/security/limits.d/grid-database-preinstall-19c.conf
 :%s/oracle/grid/g
 :x
 
-
 ```
 
 allow the port 1521 port in the Linux firewall [ref-link](https://www.ateam-oracle.com/opening-ports-in-linux-7-firewalls-for-oracle-analytics-cloud-access-to-databases-and-remote-data-connector)
