@@ -40,10 +40,10 @@ STANDBY :
 ```bash
 systemctl status postgresql
 ```
-![](Gambar/5.jpeg)
 ```bash
 date
 ```
+![](Gambar/5.jpeg)
 
 ```bash
 systemctl stop postgresql
