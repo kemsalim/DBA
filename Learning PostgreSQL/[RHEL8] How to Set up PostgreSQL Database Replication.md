@@ -18,8 +18,9 @@ reboot
 
 ```bash
 sudo yum module list | grep postgresql
-![](Gambar/1.png)
 ```
+![](Gambar/1.png)
+
 ```bash
 sudo yum install @postgresql:15
 ```
