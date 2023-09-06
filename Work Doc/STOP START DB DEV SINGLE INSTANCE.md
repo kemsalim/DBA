@@ -19,6 +19,7 @@ date
 #### SCREENSHOOT
 
 
+
 ```bash
 sqlplus / as sysdba
 ```
@@ -33,6 +34,8 @@ select name, open_mode, database_role from v$database;
 ```
 
 #### SCREENSHOOT
+
+
 
 2. Lanjut kita bisa stop service DB nya.
 
@@ -57,6 +60,11 @@ date
 
 #### SCREENSHOOT
 
+
+
+```bash
+sqlplus / as sysdba
+```
 ```bash
 shutdown immediate
 ```
@@ -69,6 +77,10 @@ shutdown immediate
 ```bash
 !date
 ```
+
+#### SCREENSHOOT
+
+
 
 ## Start
 Untuk start, kita bisa langsung dengan command berikut.
@@ -93,6 +105,8 @@ date
 ```
 	
 #### SCREENSHOOT
+
+
 
 ```bash
 sqlplus / as sysdba
