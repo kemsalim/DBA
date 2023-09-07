@@ -42,8 +42,7 @@ crsctl stat res -t
 
 ## Stop
 1. Sebelum Stop dan Start DB lakukan precheck pada setiap database :
-### Primary Node 1
-### Primary Node 2
+### Primary Node 1 and Primary Node 2
 Command precheck :
 ```bash
 ps -ef | grep pmon
@@ -54,6 +53,7 @@ ps -ef | grep lsnr
 ```bash
 date
 ```
+#### SCREENSHOOT
 ```bash
 . .grid_env
 ```
@@ -79,8 +79,7 @@ select name, open_mode, database_role from v$database;
 ```
 #### SCREENSHOOT
 
-### Standby Node 3
-### Standby Node 4
+### Standby Node 3 and Standby Node 4
 Command precheck :
 ```bash
 ps -ef | grep pmon
@@ -91,6 +90,7 @@ ps -ef | grep lsnr
 ```bash
 date
 ```
+#### SCREENSHOOT
 ```bash
 . .grid_env
 ```
@@ -100,6 +100,7 @@ crsctl stat res -t
 ```bash
 date
 ```
+#### SCREENSHOOT
 ```bash
 lsnrctl status
 ```
@@ -112,6 +113,7 @@ select name, open_mode, database_role from v$database;
 ```bash
 !hostname
 ```
+#### SCREENSHOOT
 ```bash
 SELECT /*Check gap on stby with difference*/ al.thrd "Thread", almax "Last Seq Received", lhmax "Last Seq Applied", almax-lhmax "Gap", decode(almax-lhmax, 0, 'Sync', 'Gap') "Result"
 		   FROM (select thread# thrd, MAX(sequence#) almax FROM v$archived_log WHERE resetlogs_change#=(SELECT resetlogs_change# FROM v$database) GROUP BY thread#) al,
