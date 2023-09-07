@@ -125,6 +125,7 @@ SELECT /*Check gap on stby with difference*/ al.thrd "Thread", almax "Last Seq R
 ```bash
 !hostname
 ```
+#### SCREENSHOOT
 ```bash
 select process,status from v$managed_standby;
 ```
@@ -134,6 +135,7 @@ select process,status from v$managed_standby;
 ```bash
 !hostname
 ```
+#### SCREENSHOOT
 
 2. Lanjut kita bisa stop service DB nya.
 
@@ -182,56 +184,151 @@ alter system switch logfile;
 	
 
 - shutdown dc node 2 (102)-> 
-   srvctl status listener -n mncsvicc2
-   srvctl stop listener -n mncsvicc2
-   srvctl status instance -d mncicc -i mncicc2 
-   srvctl stop instance -d mncicc -i mncicc2 -f
-   srvctl status asm -n mncsvicc2
-   srvctl stop asm -n mncsvicc2
-   ps -ef | grep pmon
-   ps -ef | grep lsnr
-   date
+
+```bash
+srvctl status listener -n mncsvicc2
+```
+```bash
+srvctl stop listener -n mncsvicc2
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+srvctl status instance -d mncicc -i mncicc2 
+```
+```bash
+srvctl stop instance -d mncicc -i mncicc2 -f
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+srvctl status asm -n mncsvicc2
+```
+```bash
+srvctl stop asm -n mncsvicc2
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+ps -ef | grep pmon
+```
+```bash
+ps -ef | grep lsnr
+```
+```bash
+date
+```
+#### SCREENSHOOT
    
 - switch redolog dua kali di dc node 1
-   alter system switch logfile;
-   alter system switch logfile;
+
+```bash
+alter system switch logfile;
+```
    
 - check archivelog apakah sudah apply di drc 1.
-   SELECT a.thread#, b. last_seq, a.applied_seq, to_char(a. last_app_timestamp,'MM/DD/YYYY HH24:MI:SS') "last_app_timestamp", b.last_seq-a.applied_seq 
-   ARC_DIFF FROM (SELECT  thread#, MAX(sequence#) applied_seq, MAX(next_time) last_app_timestamp 
-   FROM gv$archived_log WHERE applied = 'YES' or applied='IN-MEMORY' GROUP BY thread#) a, 
-   (SELECT  thread#, MAX (sequence#) last_seq FROM gv$archived_log GROUP BY thread#) b 
-   WHERE a.thread# = b.thread#;
+```bash
+SELECT a.thread#, b. last_seq, a.applied_seq, to_char(a. last_app_timestamp,'MM/DD/YYYY HH24:MI:SS') "last_app_timestamp", b.last_seq-a.applied_seq ARC_DIFF FROM (SELECT  thread#, MAX(sequence#) applied_seq, MAX(next_time) last_app_timestamp FROM gv$archived_log WHERE applied = 'YES' or applied='IN-MEMORY' GROUP BY thread#) a, (SELECT  thread#, MAX (sequence#) last_seq FROM gv$archived_log GROUP BY thread#) b WHERE a.thread# = b.thread#;
+```
    
-   --Check gap on standby DB with gap
-   SELECT /*Check gap on stby with difference*/ al.thrd "Thread", almax "Last Seq Received", lhmax "Last Seq Applied", almax-lhmax "Gap", decode(almax-lhmax, 0, 'Sync', 'Gap') "Result"
-   FROM (select thread# thrd, MAX(sequence#) almax FROM v$archived_log WHERE resetlogs_change#=(SELECT resetlogs_change# FROM v$database) GROUP BY thread#) al,
-   (SELECT thread# thrd, MAX(sequence#) lhmax FROM v$log_history WHERE resetlogs_change#=(SELECT resetlogs_change# FROM v$database) GROUP BY thread#) lh WHERE al.thrd = lh.thrd;
+- Check gap on standby DB with gap
+```bash
+SELECT /*Check gap on stby with difference*/ al.thrd "Thread", almax "Last Seq Received", lhmax "Last Seq Applied", almax-lhmax "Gap", decode(almax-lhmax, 0, 'Sync', 'Gap') "Result" FROM (select thread# thrd, MAX(sequence#) almax FROM v$archived_log WHERE resetlogs_change#=(SELECT resetlogs_change# FROM v$database)GROUP BY thread#) al, (SELECT thread# thrd, MAX(sequence#) lhmax FROM v$log_history WHERE resetlogs_change#=(SELECT resetlogs_change# FROM v$database) GROUP BY thread#) lh WHERE al.thrd = lh.thrd;
+```
 
 - stop mrp on drc 2
-   alter database recover managed standby database cancel;
+```bash
+alter database recover managed standby database cancel;
+```
    
 - shutdwon drc2 (104): -> shutdown immediate
-   srvctl status listener -n mncsvicc4 
-   srvctl stop listener -n mncsvicc4
-   srvctl status instance -d mnciccdr -i mnciccdr2
-   srvctl stop instance -d mnciccdr -i mnciccdr2 -f
-   srvctl status asm -n mncsvicc4
-   srvctl stop asm -n mncsvicc4
-   ps -ef | grep pmon
-   ps -ef | grep lsnr
-   date
+```bash
+srvctl status listener -n mncsvicc4 
+```
+```bash
+srvctl stop listener -n mncsvicc4
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+srvctl status instance -d mnciccdr -i mnciccdr2
+```
+```bash
+srvctl stop instance -d mnciccdr -i mnciccdr2 -f
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+srvctl status asm -n mncsvicc4
+```
+```bash
+srvctl stop asm -n mncsvicc4
+```
+```bash
+date
+```
+#### SCREENSHOOT
+```bash
+ps -ef | grep pmon
+```
+```bash
+ps -ef | grep lsnr
+```
+```bash
+date
+```
+#### SCREENSHOOT
    
 - stop dc node 1 (101)
-   srvctl status listener -n mncsvicc1
-   srvctl stop listener -n mncsvicc1
-   srvctl status instance -d mncicc -i mncicc1
-   srvctl stop instance -d mncicc -i mncicc1 -f
-   srvctl status asm -n mncsvicc1
-   srvctl stop asm -n mncsvicc1 -f
-   ps -ef | grep pmon
-   ps -ef | grep lsnr
-   date
+```bash
+srvctl status listener -n mncsvicc1
+```
+```bash
+srvctl stop listener -n mncsvicc1
+```
+```date
+date
+```
+#### SCREEENSHOOT
+```bash
+srvctl status instance -d mncicc -i mncicc1
+```
+```bash
+srvctl stop instance -d mncicc -i mncicc1 -f
+```
+```date
+date
+```
+#### SCREEENSHOOT
+```bash
+srvctl status asm -n mncsvicc1
+```
+```bash
+srvctl stop asm -n mncsvicc1 -f
+```
+```date
+date
+```
+#### SCREEENSHOOT
+```bash
+ps -ef | grep pmon
+```
+```bash
+ps -ef | grep lsnr
+```
+```bash
+date
+```
 
 #### SCREENSHOOT
 
