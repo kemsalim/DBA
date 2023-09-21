@@ -350,5 +350,6 @@ PATH=/home/oracle/.local/bin:/home/oracle/bin:/usr/local/sbin:/usr/local/bin:/us
 
 ## Another Refrence For Solved
 https://logic.edchen.org/how-to-resolve-ora-01152-file-1-was-not-restored-from-a-sufficiently-old-backup/
+https://docs.google.com/document/d/1YWtCWwOUzgwUbqgeyKmhM1PY45pGC9gTwJCQfJUaqxY/edit#heading=h.m9gdb6sgs64i
 
 

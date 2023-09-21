@@ -81,6 +81,9 @@ history | grep tail
 | ```nmtui``` | CMD | Untuk Network Manager Non Gui |
 | ```ps -ef pype grep pmon``` | DIR | Untuk cek proses database (orapw) |
 | ```tail -1000f <path> /aler tab``` | DIR | Untuk munculin log 1000 baris terakhir |
+| ```show paramater LOG_DEST``` | 
+| ```alter system switch logfile ```|
+
 
 ## Test Backup Restore RMAN
 
