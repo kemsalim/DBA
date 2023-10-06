@@ -13,7 +13,7 @@ echo $ORACLE_SID
 
 3. Cek Status DB
 ```bash
-select name, open_mode from v$database;
+SELECT name, open_mode from v$database;
 ```
 
 4. Check Instance Status 
@@ -44,7 +44,7 @@ shut immediate;
 ```bash
 ALTER SYSTEM SET log_archive_dest_state_2=‘DEFER’;
 
-if with restart DC then;
+// if with restart DC then
 shut immediate;
 ```
 
@@ -67,7 +67,7 @@ select process, status from v$managed_standby;
 ```bash
 alter system switch logfile; 2x (di dc)
 
-CEK GAP @
+// CEK GAP @
 ```
 
 
