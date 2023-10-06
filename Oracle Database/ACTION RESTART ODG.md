@@ -40,7 +40,7 @@ ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;
 shut immediate;
 ```
 
-8. Stop Log Ship
+8. Stop Log Ship DC
 ```bash
 ALTER SYSTEM SET log_archive_dest_state_2=‘DEFER’;
 
@@ -50,7 +50,9 @@ shut immediate;
 
 9. Start DC
 ```bash
+//if before shut DC then
 startup;
+
 ALTER SYSTEM SET log_archive_dest_state_2=‘ENABLE’;
 ```
 
