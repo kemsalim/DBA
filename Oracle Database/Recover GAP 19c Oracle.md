@@ -127,8 +127,6 @@ Current log sequence	       2871
 SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
 ```
 
-System altered.
-
 ```bash
 SQL> @gap.sql
 ```
@@ -182,6 +180,8 @@ SQL> alter system switch logfile
 [oracle@drcsenadbo01 ~]$ . .env_stbdb 
 [oracle@drcsenadbo01 ~]$ !sql
 ```
+
+```bash
 sqlplus / as sysdba
 
 SQL*Plus: Release 19.0.0.0.0 - Production on Mon Oct 9 18:24:06 2023
@@ -197,6 +197,9 @@ Version 19.9.0.0.0
 SQL> exit
 Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.9.0.0.0
+```
+
+```bash
 [oracle@drcsenadbo01 ~]$ 
 [oracle@drcsenadbo01 ~]$ 
 [oracle@drcsenadbo01 ~]$ cd mii/scripts/
@@ -215,7 +218,8 @@ Copyright (c) 1982, 2020, Oracle.  All rights reserved.
 Connected to:
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.9.0.0.0
-
+```
+```bash
 SQL> @gap.sql
 
 PROCESS   STATUS	SEQUENCE#
@@ -246,11 +250,13 @@ MOUNTED 	     PHYSICAL STANDBY 131236941
     Thread Last Seq Received Last Seq Applied	     Gap Resu
 ---------- ----------------- ---------------- ---------- ----
 	 1		2825		  789	    2036 Gap
+```
 
 ```bash
 SQL> show parameter archive_dest   
 ```
 
+```bash
 NAME				     TYPE	 VALUE
 ------------------------------------ ----------- ------------------------------
 log_archive_dest		     string
@@ -345,11 +351,13 @@ Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Pr
 Version 19.9.0.0.0
 [oracle@drcsenadbo01 scripts]$ 
 [oracle@drcsenadbo01 scripts]$ 
+```
 
 ```bash
 [oracle@drcsenadbo01 scripts]$ tnsping TNS_SENADB_PR1
 ```
 
+```bash
 TNS Ping Utility for Linux: Version 19.0.0.0.0 - Production on 09-OCT-2023 18:29:00
 
 Copyright (c) 1997, 2020, Oracle.  All rights reserved.
@@ -360,10 +368,13 @@ Used parameter files:
 Used TNSNAMES adapter to resolve the alias
 Attempting to contact (DESCRIPTION = (ADDRESS_LIST = (ADDRESS =(PROTOCOL = TCP)(HOST = dc1senadbo01.corp.bi.go.id)(PORT = 1521))) (CONNECT_DATA = (SID = senadb) (GLOBAL_NAME = senadb)))
 OK (10 msec)
+```
 
 ```bash
 [oracle@drcsenadbo01 scripts]$ sqlplus sys/bicloudera#123@TNS_SENADB_PR1 as sysdba
 ```
+
+```bash
 SQL*Plus: Release 19.0.0.0.0 - Production on Mon Oct 9 18:31:35 2023
 Version 19.9.0.0.0
 
@@ -380,17 +391,21 @@ SQL> SELECT dbid, open_mode, database_role from v$database;
 ---------- -------------------- ----------------
 2267153246 READ WRITE		PRIMARY
 
+```
+
 ```bash
 SQL> select current_scn from v$database;
 ```
-
+```bash
 CURRENT_SCN
 -----------
   315467546
+```
 
 ```bash
 SQL> archive log list
 ```
+```bash
 Database log mode	       Archive Mode
 Automatic archival	       Enabled
 Archive destination	       USE_DB_RECOVERY_FILE_DEST
@@ -406,21 +421,25 @@ Version 19.9.0.0.0
 oracle    710719  709081  0 18:33 pts/0    00:00:00 grep --color=auto mrp
 [oracle@drcsenadbo01 scripts]$ 
 [oracle@drcsenadbo01 scripts]$ 
+```
+
 ```bash
 [oracle@drcsenadbo01 scripts]$ rman target /
 ```
 
+```bash
 Recovery Manager: Release 19.0.0.0.0 - Production on Mon Oct 9 18:33:41 2023
 Version 19.9.0.0.0
 
 Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
 connected to target database: SENADB (DBID=2267153246, not open)
+```
 
 ```bash
 RMAN> recover standby database from service TNS_SENADB_PR1;
 ```
-
+```bash
 Starting recover at 09-OCT-23
 using target database control file instead of recovery catalog
 Oracle instance started
@@ -654,12 +673,12 @@ RMAN> exit
 
 
 Recovery Manager complete.
+```
 
 ```bash
 SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;
 ```
-
-Database altered.
+```bash
 
 SQL> select process, status from v$managed_standby;
 
@@ -687,6 +706,8 @@ MRP0	  WAIT_FOR_LOG
 SQL> exit
 Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.9.0.0.0
+```
+```bash
 [oracle@drcsenadbo01 scripts]$ sqlplus / as sysdba
 
 SQL*Plus: Release 19.0.0.0.0 - Production on Mon Oct 9 18:48:35 2023
@@ -735,12 +756,14 @@ MOUNTED 	     PHYSICAL STANDBY 315470587
     Thread Last Seq Received Last Seq Applied	     Gap Resu
 ---------- ----------------- ---------------- ---------- ----
 	 1		2825		 2870	     -45 Gap
+```
 
 ```bash
 SQL> @gap.sql
 ```
 ### Result after switch log file from side dc
 
+```bash
 PROCESS   STATUS	SEQUENCE#
 --------- ------------ ----------
 ARCH	  CONNECTED		0
@@ -775,8 +798,8 @@ MOUNTED 	     PHYSICAL STANDBY 315470587
     Thread Last Seq Received Last Seq Applied	     Gap Resu
 ---------- ----------------- ---------------- ---------- ----
 	 1		2871		 2871	       0 Sync
+```
 
-SQL> 
 
 
 
