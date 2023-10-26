@@ -5,6 +5,8 @@
 ```bash
 SQL> SELECT dbid, open_mode, database_role from v$database;
 ```
+
+```bash
       DBID OPEN_MODE		DATABASE_ROLE
 ---------- -------------------- ----------------
 2267153246 READ WRITE		PRIMARY
@@ -38,10 +40,10 @@ Copyright (c) 1982, 2020, Oracle.  All rights reserved.
 Connected to:
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.9.0.0.0
+```
 
 ```bash
 SQL> @gap.sql
-```
 
 PROCESS   STATUS	SEQUENCE#
 --------- ------------ ----------
@@ -84,12 +86,13 @@ SQL> SELECT dbid, open_mode, database_role from v$database;
       DBID OPEN_MODE		DATABASE_ROLE
 ---------- -------------------- ----------------
 2267153246 READ WRITE		PRIMARY
+```
 
 ```bash
 [oracle@dc1senadbo01 scripts]$ 
 [oracle@dc1senadbo01 scripts]$ 
 [oracle@dc1senadbo01 scripts]$ !sql
-```
+
 sqlplus / as sysdba
 
 SQL*Plus: Release 19.0.0.0.0 - Production on Mon Oct 9 18:32:16 2023
@@ -117,6 +120,7 @@ Archive destination	       USE_DB_RECOVERY_FILE_DEST
 Oldest online log sequence     2869
 Next log sequence to archive   2871
 Current log sequence	       2871
+```
 
 ```bash
 SQL> ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
