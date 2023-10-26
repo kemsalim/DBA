@@ -6,15 +6,13 @@
 SQL> SELECT dbid, open_mode, database_role from v$database;
 ```
 
-```
+```bash
       DBID OPEN_MODE		DATABASE_ROLE
 ---------- -------------------- ----------------
 2267153246 READ WRITE		PRIMARY
 
 TNS_SENADB_PR1
-```
 
-```bash
 [oracle@dc1senadbo01 ~]$ . .bash_profile 
 [oracle@dc1senadbo01 ~]$ 
 [oracle@dc1senadbo01 ~]$ 
@@ -28,7 +26,6 @@ senadb
 [oracle@dc1senadbo01 scripts]$ 
 [oracle@dc1senadbo01 scripts]$ 
 [oracle@dc1senadbo01 scripts]$ !sql
-```
 
 sqlplus / as sysdba
 
