@@ -79,7 +79,6 @@ READ WRITE	     PRIMARY	      315462686
 
 ```bash
 SQL> SELECT dbid, open_mode, database_role from v$database;
-```
 
       DBID OPEN_MODE		DATABASE_ROLE
 ---------- -------------------- ----------------
@@ -102,11 +101,13 @@ Copyright (c) 1982, 2020, Oracle.  All rights reserved.
 Connected to:
 Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.9.0.0.0
+```
 
 ```bash
 SQL> select current_scn from v$database;
 ```
 
+```bash
 CURRENT_SCN
 -----------
   315467362
@@ -130,6 +131,7 @@ System altered.
 SQL> @gap.sql
 ```
 
+```bash
 PROCESS   STATUS	SEQUENCE#
 --------- ------------ ----------
 DGRD	  ALLOCATED		0
@@ -165,6 +167,7 @@ READ WRITE	     PRIMARY	      315482063
     Thread Last Seq Received Last Seq Applied	     Gap Resu
 ---------- ----------------- ---------------- ---------- ----
 	 1		2870		 2870	       0 Sync
+```
 
 ```bash
 SQL> alter system switch logfile
