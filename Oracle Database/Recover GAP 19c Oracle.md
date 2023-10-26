@@ -77,6 +77,8 @@ READ WRITE	     PRIMARY	      315462686
 ---------- ----------------- ---------------- ---------- ----
 	 1		2870		 2870	       0 Sync
 
+```
+
 ```bash
 SQL> SELECT dbid, open_mode, database_role from v$database;
 
