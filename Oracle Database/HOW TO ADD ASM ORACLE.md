@@ -6,8 +6,11 @@
 ### Command Step 1
 ```bash
 su - grid 
+```
+```bash
 sqlplus / as sysasm
-
+```
+```bash
 set lines 500 pages 500
 SELECT g.name,
        sum(b.total_mb) total_mb,
@@ -36,4 +39,3 @@ FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number orde
 ```
 
 ![Alt text](image-1.png)
-
