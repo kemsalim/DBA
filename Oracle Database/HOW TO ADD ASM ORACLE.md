@@ -37,3 +37,84 @@ FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number orde
 ```
 
 ![Alt text](image-3.png)
+
+#### 2. Check Raw Disks
+
+Note: Pastikan raw disks terbaca di kedua node
+
+
+### Command Step 2
+```bash
+lsblk
+```
+![Alt text](image-4.png)
+
+#### 3. Format disks dengan ASMLIB dengan user ROOT (Ini jika belum dibantu oleh team OS)
+
+### Command Step 3
+```bash
+su - root
+```
+```bash
+oracleasm listdisks
+```
+![Alt text](image-5.png)
+
+```bash
+oracleasm createdisk NAME /PATH
+```
+![Alt text](image-6.png)
+
+```bash
+oracleasm listdisks
+```
+![Alt text](image-7.png)
+
+#### 4. Check Disks pada node 2 
+
+### Command Step 4
+```bash
+su - root
+
+# oracleasm scandisks
+# oracleasm listdisks
+```
+
+#### 5 Check FORMER or CANDIDATE Disks
+
+### Command Step 5
+
+```bash
+su - grid
+```
+```bash
+sqlplus / as sysasm
+```
+```bash
+SELECT header_status              "Header"
+, mode_status                     "Mode"
+, path                            "Path"
+, lpad(round(os_mb/1024),7)||'Gb' "Disk Size"
+FROM   v$asm_disk
+WHERE header_status in ('FORMER','CANDIDATE','PROVISIONED')
+ORDER by path
+```
+![Alt text](image-8.png)
+
+#### 5. Create New Diskgroup Test
+
+### Command Step 5
+
+```bash
+su - grid
+```
+```bash
+sqlplus / as sysasm
+```
+```bash
+CREATE DISKGROUP Dgroup_test external redundancy DISK 
+'/dev/oracleasm/disks/DATA2',
+'/dev/oracleasm/disks/DATA3';
+```
+![Alt text](image-9.png)
+
