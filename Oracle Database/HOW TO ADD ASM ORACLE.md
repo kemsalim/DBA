@@ -1,8 +1,8 @@
 # Restart ODG and MOP How To Add ASM
 
-#### 1. Check ASM_DISK dan ASM_DISKGROUP Information on DC Side at User Grid
+#### 1. Check ASM_DISK dan ASM_DISKGROUP Information on DC Side with User Grid
 
-##### Command Step 1
+### Command Step 1
 ```bash
 su - grid 
 ```
