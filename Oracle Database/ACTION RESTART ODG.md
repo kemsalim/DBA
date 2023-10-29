@@ -42,7 +42,7 @@ shut immediate;
 
 8. Stop Log Ship DC
 ```bash
-ALTER SYSTEM SET log_archive_dest_state_2=‘DEFER’;
+ALTER SYSTEM SET log_archive_dest_state_2='DEFER';
 
 // if with restart DC then
 shut immediate;
@@ -53,7 +53,7 @@ shut immediate;
 //if before shut DC then
 startup;
 
-ALTER SYSTEM SET log_archive_dest_state_2=‘ENABLE’;
+ALTER SYSTEM SET log_archive_dest_state_2='ENABLE';
 ```
 
 10. Start DRC
