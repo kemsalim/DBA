@@ -3,7 +3,7 @@
 | No  | Activities  | Host | 
 | -------- | -------- | -------- | 
 | 1 | Check ASM_DISK dan ASM_DISKGROUP Information | DC / DRC | 
-## Step 1
+### Step 1
 ```bash
 su - grid 
 sqlplus / as sysasm
