@@ -80,7 +80,7 @@ su - root
 # oracleasm listdisks
 ```
 
-## 5 Check FORMER or CANDIDATE Disks
+## 5. Check FORMER or CANDIDATE Disks
 
 ### Command Step 5
 
@@ -103,7 +103,7 @@ ORDER by path
 
 ## 6. Create New Diskgroup Test
 
-### Command Step 5
+### Command Step 6
 
 ```bash
 su - grid
