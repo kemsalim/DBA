@@ -1,8 +1,7 @@
 # Restart ODG and MOP How To Add ASM
 
-| No  | Activities  | Host | User | 
-| -------- | -------- | -------- | -------- |
-| 1 | Check ASM_DISK dan ASM_DISKGROUP Information | DC / DRC | Grid |
+## 1. Check ASM_DISK dan ASM_DISKGROUP Information on DC Side at User Grid
+
 ### Command Step 1
 ```bash
 su - grid 
@@ -24,8 +23,7 @@ where b.group_number = g.group_number (+)
 group by g.name
 order by 1;
 ```
-
-![Alt text](image.png)
+![Alt text](image-2.png)
 
 ```bash
 set lines 500 pages 500
@@ -38,4 +36,4 @@ SELECT dg.name diskgroup,dg.type,d.failgroup, d.name asmdisk,d.path,round(d.tota
 FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4;
 ```
 
-![Alt text](image-1.png)
+![Alt text](image-3.png)
