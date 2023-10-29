@@ -1,6 +1,6 @@
 # Restart ODG and MOP How To Add ASM
 
-#### 1. Check ASM_DISK dan ASM_DISKGROUP Information on DC Side with User Grid
+## 1. Check ASM_DISK dan ASM_DISKGROUP Information on DC Side with User Grid
 
 ### Command Step 1
 ```bash
@@ -38,7 +38,7 @@ FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number orde
 
 ![Alt text](image-3.png)
 
-#### 2. Check Raw Disks
+## 2. Check Raw Disks
 
 Note: Pastikan raw disks terbaca di kedua node
 
@@ -49,7 +49,7 @@ lsblk
 ```
 ![Alt text](image-4.png)
 
-#### 3. Format disks dengan ASMLIB dengan user ROOT (Ini jika belum dibantu oleh team OS)
+## 3. Format disks dengan ASMLIB dengan user ROOT (Ini jika belum dibantu oleh team OS)
 
 ### Command Step 3
 ```bash
@@ -70,7 +70,7 @@ oracleasm listdisks
 ```
 ![Alt text](image-7.png)
 
-#### 4. Check Disks pada node 2 
+## 4. Check Disks pada node 2 
 
 ### Command Step 4
 ```bash
@@ -80,7 +80,7 @@ su - root
 # oracleasm listdisks
 ```
 
-#### 5 Check FORMER or CANDIDATE Disks
+## 5 Check FORMER or CANDIDATE Disks
 
 ### Command Step 5
 
@@ -101,7 +101,7 @@ ORDER by path
 ```
 ![Alt text](image-8.png)
 
-#### 5. Create New Diskgroup Test
+## 5. Create New Diskgroup Test
 
 ### Command Step 5
 
