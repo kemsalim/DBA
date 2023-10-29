@@ -2,7 +2,9 @@
 
 | No  | Activities  | Host | Command |
 | -------- | -------- | -------- | -------- |
-| 1 | Check ASM_DISK dan ASM_DISKGROUP Information | DC / DRC | su - grid
+| 1 | Check ASM_DISK dan ASM_DISKGROUP Information | DC / DRC | 
+```bash
+su - grid 
 sqlplus / as sysasm
 
 set lines 500 pages 500
@@ -25,4 +27,4 @@ col failgroup for a18
 col asmdisk for a20
 col path for a30
 SELECT dg.name diskgroup,dg.type,d.failgroup, d.name asmdisk,d.path,round(d.total_mb/1024,2)total_gb,round(d.free_mb/1024,2)free_gb 
-FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4; |
+FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4;``` |
