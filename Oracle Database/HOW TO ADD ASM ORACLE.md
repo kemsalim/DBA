@@ -23,7 +23,7 @@ where b.group_number = g.group_number (+)
 group by g.name
 order by 1;
 ```
-![Alt text](/IMG/image-2.png)
+![Alt text](IMG/image-2.png)
 
 ```bash
 set lines 500 pages 500
