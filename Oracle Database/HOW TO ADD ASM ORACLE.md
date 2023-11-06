@@ -36,7 +36,7 @@ SELECT dg.name diskgroup,dg.type,d.failgroup, d.name asmdisk,d.path,round(d.tota
 FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4;
 ```
 
-![Alt text](image-3.png)
+![Alt text](IMG/image-3.png)
 
 ## 2. Check Raw Disks
 
@@ -47,7 +47,7 @@ Note: Pastikan raw disks terbaca di kedua node
 ```bash
 lsblk
 ```
-![Alt text](image-4.png)
+![Alt text](IMG/image-4.png)
 
 ## 3. Format disks dengan ASMLIB dengan user ROOT (Ini jika belum dibantu oleh team OS)
 
@@ -58,17 +58,17 @@ su - root
 ```bash
 oracleasm listdisks
 ```
-![Alt text](image-5.png)
+![Alt text](IMG/image-5.png)
 
 ```bash
 oracleasm createdisk NAME /PATH
 ```
-![Alt text](image-6.png)
+![Alt text](IMG/image-6.png)
 
 ```bash
 oracleasm listdisks
 ```
-![Alt text](image-7.png)
+![Alt text](IMG/image-7.png)
 
 ## 4. Check Disks pada node 2 
 
@@ -99,7 +99,7 @@ FROM   v$asm_disk
 WHERE header_status in ('FORMER','CANDIDATE','PROVISIONED')
 ORDER by path
 ```
-![Alt text](image-8.png)
+![Alt text](IMG/image-8.png)
 
 ## 6. Create New Diskgroup Test
 
@@ -116,7 +116,7 @@ CREATE DISKGROUP Dgroup_test external redundancy DISK
 '/dev/oracleasm/disks/DATA2',
 '/dev/oracleasm/disks/DATA3';
 ```
-![Alt text](image-9.png)
+![Alt text](IMG/image-9.png)
 
 ## 7. Check Diskgroup Test
 
@@ -132,7 +132,7 @@ set lines 400 pages 800
 col path for a35
 SELECT name, total_mb, free_mb, usable_file_mb, state FROM v$asm_diskgroup;
 ```
-![Alt text](image-10.png)
+![Alt text](IMG/image-10.png)
 
 ```bash
 SELECT name, header_status FROM v$asm_disk WHERE header_status <> 'MEMBER';
@@ -146,7 +146,7 @@ col path for a30
 SELECT dg.name diskgroup,dg.type,d.failgroup, d.name asmdisk,d.path,round(d.total_mb/1024,2)total_gb,round(d.free_mb/1024,2)free_gb 
 FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4;
 ```
-![Alt text](image-11.png)
+![Alt text](IMG/image-11.png)
 
 ## 8. Drop Diskgroup Test
 
@@ -183,7 +183,7 @@ WHERE header_status in ('FORMER','CANDIDATE')
 ORDER by path
 /
 ```
-![Alt text](image-13.png)
+![Alt text](IMG/image-13.png)
 
 ## 10. Add Disks ke Diskgroup DATA
 
@@ -200,7 +200,7 @@ ALTER DISKGROUP DATA ADD DISK
 '/dev/oracleasm/disks/DATA3'
  REBALANCE POWER 8;
 ```
-![Alt text](image-14.png)
+![Alt text](IMG/image-14.png)
 
 ## 11. Check Process Rebalance
 
@@ -214,7 +214,7 @@ sqlplus / as sysasm
 ```bash
 SELECT * FROM gv$asm_operation;
 ```
-![Alt text](image-15.png)
+![Alt text](IMG/image-15.png)
 
 ## 12. Check ASM_DISK dan ASM_DISKGROUP Information 
 
@@ -250,7 +250,7 @@ col path for a30
 SELECT dg.name diskgroup,dg.type,d.failgroup, d.name asmdisk,d.path,round(d.total_mb/1024,2)total_gb,round(d.free_mb/1024,2)free_gb 
 FROM v$asm_diskgroup dg join v$asm_disk d on dg.group_number=d.group_number order by 4;
 ```
-![Alt text](image-17.png)
+![Alt text](IMG/image-17.png)
 
 
 
