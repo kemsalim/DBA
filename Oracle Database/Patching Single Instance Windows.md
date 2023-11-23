@@ -1,6 +1,6 @@
 # How to Patching DB Single Instance on Windows
 
-1. Lakukan set profile terlebih dahulu
+### 1. Lakukan set profile terlebih dahulu
 ```bash
 C:\Users\Administrator>set ORACLE_SID=EAM
 
@@ -11,7 +11,7 @@ C:\Users\Administrator>
 C:\Users\Administrator>
 ```
 
-2. Lakukan pengecekan version OPatch (Memastikan denegan DOC Read Me bahwa sudah sesuai)
+### 2. Lakukan pengecekan version OPatch (Memastikan denegan DOC Read Me bahwa sudah sesuai)
 ```bash
 C:\Users\Administrator>cd ..
 
@@ -274,7 +274,7 @@ OPatch Version: 12.2.0.1.37
 
 OPatch succeeded.
 ```
-3. Lakukan pengecekan konflik 
+### 3. Lakukan pengecekan konflik 
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>opatch prereq CheckConflictAgainstOHWithDetail -ph D:\p33575656_190000_MSWIN-x86-64\33575656
 Oracle Interim Patch Installer version 12.2.0.1.37
@@ -295,7 +295,7 @@ Prereq "checkConflictAgainstOHWithDetail" passed.
 
 OPatch succeeded.
 ```
-4. Stop Listener, supaya tidak ada aplikasi yang bisa akses ketika dilakukan patching. 
+### 4. Stop Listener, supaya tidak ada aplikasi yang bisa akses ketika dilakukan patching. 
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>lsnrctl status
@@ -355,7 +355,7 @@ TNS-12541: TNS:no listener
    64-bit Windows Error: 2: No such file or directory
 ```
 
-5. Masuk ke SQLPLUS dan lakukan shut pada Instance DB.
+### 5. Masuk ke SQLPLUS dan lakukan shut pada Instance DB.
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
@@ -399,13 +399,13 @@ Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Pr
 Version 19.9.0.0.0 (with complications)
 ```
 
-6. Sesuai dengan READ ME doc Patching, set PERL5LIB=
+### 6. Sesuai dengan READ ME doc Patching, set PERL5LIB=
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>set PERL5LIB=
 ```
 
-7. Lakukan stop service msdtc
+### 7. Lakukan stop service msdtc
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
@@ -415,7 +415,7 @@ The Distributed Transaction Coordinator service was stopped successfully.
 
 ```
 
-8. Lakukan dan mulai patching
+### 8. Lakukan dan mulai patching
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
@@ -598,7 +598,7 @@ OPatch succeeded.
 
 ```
 
-9. Lakukan pengecekan version terlebih dahulu bahwa patching sudah berhasil.
+### 9. Lakukan pengecekan version terlebih dahulu bahwa patching sudah berhasil.
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>sqlplus / as sysdba
@@ -609,7 +609,7 @@ Version 19.14.0.0.0
 Copyright (c) 1982, 2021, Oracle.  All rights reserved.
 ```
 
-10. Nyalakan kembali listener
+### 10. Nyalakan kembali listener
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
@@ -680,7 +680,7 @@ The command completed successfully
 
 ```
 
-11. Start Instance Database kembali
+### 11. Start Instance Database kembali
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
@@ -712,7 +712,7 @@ D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 ```
 
-12. Check datapatch
+### 12. Check datapatch
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>datapatch -verbose
@@ -753,7 +753,7 @@ D:\app\oraadm\product\19.0.0\db_home\OPatch>
 D:\app\oraadm\product\19.0.0\db_home\OPatch>
 ```
 
-13. Masuk ke RDBMS Direktori dan lakukan utlrp
+### 13. Masuk ke RDBMS Direktori dan lakukan utlrp
 
 ```bash
 D:\app\oraadm\product\19.0.0\db_home\OPatch>cd
