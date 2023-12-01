@@ -801,6 +801,18 @@ MOUNTED 	     PHYSICAL STANDBY 315470587
 ```
 
 
+### Any advice
+If this db using broker, you must set APPLY OF MRP on broker. 
+```bash
+dgmgrl /
+```
+```bash
+show configuration
+```
+```bash
+edit database ‘dbuniqname’ set STATE=APPLY-OFF’;
+```
+
 
 
 
