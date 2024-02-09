@@ -77,6 +77,22 @@ count(*) Archives_Generated from v$archived_log
 group by trunc(COMPLETION_TIME,'DD'),thread# order by 1;
 ```
 
+#### /Day Currently Detail
+```bash
+select to_char(COMPLETION_TIME,'DD/MON/YYYY') Day,
+sum(blocks*block_size)/1048576/1024 "Size(GB)",
+count(sequence#) "Total Archives"
+from (select distinct sequence#,
+thread#,
+COMPLETION_TIME,
+blocks,
+block_size
+from v$archived_log
+where completion_time>=sysdate-30)
+group by to_char(COMPLETION_TIME,'DD/MON/YYYY')
+order by 1;
+```
+
 ```bash
 crosscheck archivelog all;
 ```
